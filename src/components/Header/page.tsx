@@ -2,6 +2,7 @@
 "use client";
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Phone, Menu, X, ChevronDown, Truck, Shield, Clock, Package, Workflow, GalleryVertical, Users, Target } from 'lucide-react';
 
 export default function Header() {
@@ -9,6 +10,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,18 +21,18 @@ export default function Header() {
   }, []);
 
   const navItems = [
-    { name: 'Home', href: '/' },
+    { name: 'Home', href: '/', icon: null },
     { 
       name: 'Services', 
       href: '/services',
       icon: Truck,
       submenu: [
-        { name: 'Residential Moving', href: '/services/residential', icon: Truck },
-        { name: 'Commercial Relocation', href: '/services/commercial', icon: Truck },
-        { name: 'Long Distance Moving', href: '/services/long-distance', icon: Truck },
-        { name: 'Packing Services', href: '/services/packing', icon: Package },
-        { name: 'Storage Solutions', href: '/services/storage', icon: Package },
-        { name: 'Vehicle Shipping', href: '/services/vehicle', icon: Truck },
+        { name: 'Residential Moving', href: '/services', icon: Truck },
+        { name: 'Commercial Relocation', href: '/services', icon: Truck },
+        { name: 'Long Distance Moving', href: '/services', icon: Truck },
+        { name: 'Packing Services', href: '/services', icon: Package },
+        { name: 'Storage Solutions', href: '/services', icon: Package },
+        { name: 'Vehicle Shipping', href: '/services', icon: Truck },
       ]
     },
     { 
@@ -197,9 +199,9 @@ export default function Header() {
             </div>
           ))}
           
-          {/* CTA Button */}
+          {/* CTA Button - Fixed link to /services/request-quote */}
           <Link 
-            href="/get-quote" 
+            href="/services/request-quote" 
             className={`ml-4 bg-gradient-to-r from-[#D4AF37] to-amber-500 text-[#0A2540] font-bold rounded-full hover:shadow-lg hover:shadow-amber-500/30 transition-all duration-300 ${
               isScrolled ? 'px-5 py-2 text-sm' : 'px-6 py-2.5 text-sm'
             }`}
@@ -297,7 +299,7 @@ export default function Header() {
                 <Phone className="h-5 w-5" /> (214) 897-2420
               </a>
               <Link 
-                href="/get-quote" 
+                href="/services/request-quote" 
                 className="block bg-gradient-to-r from-[#D4AF37] to-amber-500 text-[#0A2540] font-bold px-6 py-3 rounded-full text-center w-full hover:shadow-lg transition-all duration-300"
                 onClick={() => setIsMenuOpen(false)}
               >
