@@ -12,7 +12,7 @@ export default function CompanyHistory() {
   const milestones = [
     { 
       year: '2019', 
-      title: 'Texas Launch', 
+      title: 'Maryland Launch', 
       description: 'Began with 2 trucks in Dallas-Fort Worth',
       stats: '2 trucks • 3 employees',
       icon: Rocket,
@@ -21,8 +21,8 @@ export default function CompanyHistory() {
     },
     { 
       year: '2021', 
-      title: 'Texas Expansion', 
-      description: 'Expanded to serve all major Texas cities',
+      title: 'Maryland Expansion', 
+      description: 'Expanded to serve all major US cities',
       stats: '8 trucks • 12 employees',
       icon: Zap,
       color: 'from-emerald-500 to-teal-400',
@@ -121,7 +121,7 @@ export default function CompanyHistory() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl md:text-6xl font-bold text-[#0A2540] mb-6 relative z-10"
           >
-            From <span className="text-[#D4AF37]">Texas</span> to{' '}
+            From <span className="text-[#D4AF37]">Maryland</span> to{' '}
             <motion.span
               initial={{ backgroundPosition: '0% 50%' }}
               animate={isInView ? { backgroundPosition: '100% 50%' } : {}}
