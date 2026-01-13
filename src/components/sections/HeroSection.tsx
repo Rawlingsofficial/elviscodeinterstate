@@ -36,7 +36,7 @@ export default function HeroSection() {
         <div className="max-w-3xl">
           <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
             <Shield className="h-4 w-4 text-[#D4AF37]" />
-            <span className="text-white text-sm font-medium">Trusted by 10,000+ Families</span>
+            <span className="text-white text-sm font-medium">Trusted by 1000+ Families</span>
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
@@ -61,7 +61,7 @@ export default function HeroSection() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl">
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20">
-              <div className="text-3xl font-bold text-white mb-2">80+</div>
+              <div className="text-3xl font-bold text-white mb-2">30+</div>
               <div className="text-white/80 text-sm">Cities Covered</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20">
@@ -74,7 +74,7 @@ export default function HeroSection() {
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20">
               <div className="text-3xl font-bold text-white mb-2 flex items-center">
                 <DollarSign className="h-5 w-5 text-[#D4AF37] mr-2" />
-                5K+
+                1K+
               </div>
               <div className="text-white/80 text-sm">Moves Completed</div>
             </div>
