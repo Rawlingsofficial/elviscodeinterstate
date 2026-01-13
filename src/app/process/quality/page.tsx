@@ -11,7 +11,8 @@ import {
   Package,
   Home,
   Target,
-  Star
+  Star,
+  Clock
 } from 'lucide-react';
 
 export default function QualityPage() {
