@@ -1,211 +1,274 @@
-// File: src/components/sections/RequestQuote.tsx
+// File: src/components/sections/MiniGallery.tsx
 "use client";
 
 import { motion } from 'framer-motion';
-import { Truck, Phone } from 'lucide-react';
-import { useState } from 'react';
+import { ChevronRight, ChevronLeft, Home, Building, Package, Truck, Users } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-export default function RequestQuote() {
-  const [selectedSize, setSelectedSize] = useState<string>('1-2 Bed');
+// Gallery categories with icons
+const galleryCategories = [
+  { id: 'residential', label: 'Residential Moves', icon: Home, color: 'text-blue-500' },
+  { id: 'commercial', label: 'Commercial Moves', icon: Building, color: 'text-green-500' },
+  { id: 'packing', label: 'Packing Process', icon: Package, color: 'text-amber-500' },
+  { id: 'fleet', label: 'Our Fleet', icon: Truck, color: 'text-red-500' },
+  { id: 'team', label: 'Our Team', icon: Users, color: 'text-purple-500' },
+];
 
-  const homeSizes = [
-    { label: 'Studio/Apt', value: 'studio' },
-    { label: '1-2 Bed', value: '1-2' },
-    { label: '3-4 Bed', value: '3-4' },
-    { label: '5+ Bed', value: '5+' },
-  ];
+// Sample gallery images (you can replace with your actual images)
+const galleryImages = {
+  residential: [
+    { src: '/gallery/residential1.jpeg', alt: 'Residential Move 1' },
+    { src: '/gallery/residential2.jpeg', alt: 'Residential Move 2' },
+    { src: '/gallery/residential3.jpeg', alt: 'Residential Move 3' },
+    { src: '/gallery/residential4.jpeg', alt: 'Residential Move 4' },
+    { src: '/gallery/residential5.jpeg', alt: 'Residential Move 5' },
+    { src: '/gallery/residential6.jpeg', alt: 'Residential Move 6' },
+    { src: '/gallery/residential7.jpeg', alt: 'Residential Move 7' },
+  ],
+  commercial: [
+    { src: '/gallery/commercial1.jpeg', alt: 'Commercial Move 1' },
+    { src: '/gallery/commercial2.jpeg', alt: 'Commercial Move 2' },
+    { src: '/gallery/commercial3.jpeg', alt: 'Commercial Move 3' },
+    { src: '/gallery/commercial4.jpeg', alt: 'Commercial Move 4' },
+    { src: '/gallery/commercial5.jpeg', alt: 'Commercial Move 5' },
+    { src: '/gallery/commercial6.jpeg', alt: 'Commercial Move 6' },
+    { src: '/gallery/commercial7.jpeg', alt: 'Commercial Move 7' },
+  ],
+  packing: [
+    { src: '/gallery/pakaging1.jpeg', alt: 'Packing Process 1' },
+    { src: '/gallery/pakaging2.jpeg', alt: 'Packing Process 2' },
+    { src: '/gallery/pakaging3.jpeg', alt: 'Packing Process 3' },
+    { src: '/gallery/pakaging4.jpeg', alt: 'Packing Process 4' },
+    { src: '/gallery/pakaging5.jpeg', alt: 'Packing Process 5' },
+    { src: '/gallery/pakaging6.jpeg', alt: 'Packing Process 6' },
+    { src: '/gallery/pakaging7.jpeg', alt: 'Packing Process 7' },
+  ],
+  fleet: [
+    { src: '/gallery/fleet.jpeg', alt: 'Our Fleet 1' },
+    { src: '/gallery/fleet1.jpeg', alt: 'Our Fleet 2' },
+    { src: '/gallery/fleet5.jpeg', alt: 'Our Fleet 3' },
+    { src: '/gallery/fleet7.jpeg', alt: 'Our Fleet 4' },
+  ],
+  team: [
+    { src: '/gallery/team.jpeg', alt: 'Our Team 1' },
+    { src: '/gallery/team2.jpeg', alt: 'Our Team 2' },
+    { src: '/gallery/team3.jpeg', alt: 'Our Team 3' },
+  ],
+};
+
+export default function MiniGallery() {
+  const [selectedCategory, setSelectedCategory] = useState('residential');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const images = galleryImages[selectedCategory as keyof typeof galleryImages] || [];
+  const totalImages = images.length;
+
+  // Auto slide effect
+  useEffect(() => {
+    if (isHovered || totalImages === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % totalImages);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isHovered, totalImages]);
+
+  // Scroll to selected image
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const imageWidth = container.scrollWidth / totalImages;
+      container.scrollTo({
+        left: currentIndex * imageWidth,
+        behavior: 'smooth',
+      });
+    }
+  }, [currentIndex, totalImages]);
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % totalImages);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + totalImages) % totalImages);
+  };
+
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(category);
+    setCurrentIndex(0);
+  };
 
   return (
-    <section className="py-20 md:py-28 bg-white">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container-custom px-4 sm:px-6">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="space-y-8"
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <span className="inline-block px-4 py-2 bg-[#D4AF37]/10 text-[#D4AF37] font-semibold rounded-full text-sm mb-4">
+            OUR WORK
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0A2540] mb-4">
+            Gallery Preview
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            A glimpse into our professional moving services. Scroll through or let it auto-play.
+          </p>
+        </motion.div>
+
+        {/* Category Selector */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          viewport={{ once: true }}
+          className="flex justify-center mb-10"
+        >
+          <div className="inline-flex flex-wrap gap-2 p-1 bg-gray-100 rounded-lg">
+            {galleryCategories.map((category) => {
+              const Icon = category.icon;
+              return (
+                <button
+                  key={category.id}
+                  onClick={() => handleCategoryClick(category.id)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all ${
+                    selectedCategory === category.id
+                      ? 'bg-white text-[#0A2540] shadow-sm'
+                      : 'text-gray-600 hover:text-[#0A2540]'
+                  }`}
+                >
+                  <Icon className={`h-4 w-4 ${category.color}`} />
+                  <span className="text-sm font-medium">{category.label}</span>
+                  <span className="text-xs bg-gray-200 px-2 py-0.5 rounded-full">
+                    {galleryImages[category.id as keyof typeof galleryImages]?.length || 0}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        {/* Gallery Container */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="relative"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* Navigation Arrows */}
+          <button
+            onClick={handlePrev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all disabled:opacity-50"
+            disabled={totalImages === 0}
           >
-            <div>
-              <span className="inline-block px-4 py-2 bg-[#D4AF37]/10 text-[#D4AF37] font-semibold rounded-full text-sm mb-4">
-                GET A QUOTE
-              </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0A2540] mb-6">
-                Ready to Move?
-                <br />
-                <span className="text-[#D4AF37]">Get Your Free Quote</span>
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Fill out our quick form and get a personalized moving quote in minutes. No hidden fees, just honest pricing.
-              </p>
-            </div>
+            <ChevronLeft className="h-5 w-5 text-[#0A2540]" />
+          </button>
 
-            {/* Quick Contact */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-r from-[#0A2540] to-[#1a3a5f] rounded-2xl p-6 text-white"
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 bg-white/10 rounded-xl">
-                  <Phone className="h-6 w-6" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold">Prefer to Call?</h4>
-                  <p className="text-white/80 text-sm">Speak directly with our moving experts</p>
-                </div>
-              </div>
-              <a 
-                href="tel:+1234567890" 
-                className="text-2xl font-bold hover:text-[#D4AF37] transition-colors flex items-center gap-3"
-              >
-                <Truck className="h-6 w-6 text-[#D4AF37]" />
-                (555) 123-4567
-              </a>
-            </motion.div>
-
-            {/* Trust Badges */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-[#D4AF37] rounded-full"></div>
-                <span className="text-gray-700 font-medium">No commitment required</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-[#D4AF37] rounded-full"></div>
-                <span className="text-gray-700 font-medium">Price match guarantee</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-[#D4AF37] rounded-full"></div>
-                <span className="text-gray-700 font-medium">30-minute response time</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100"
+          <button
+            onClick={handleNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all disabled:opacity-50"
+            disabled={totalImages === 0}
           >
-            <h3 className="text-2xl font-bold text-[#0A2540] mb-6">Quick Quote Form</h3>
-            
-            <form className="space-y-5">
-              {/* Basic Info */}
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-2">Full Name *</label>
-                  <input
-                    type="text"
-                    required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 outline-none transition-all"
-                    placeholder="John Smith"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-2">Phone *</label>
-                  <input
-                    type="tel"
-                    required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 outline-none transition-all"
-                    placeholder="(555) 123-4567"
-                  />
-                </div>
-              </div>
+            <ChevronRight className="h-5 w-5 text-[#0A2540]" />
+          </button>
 
-              <div>
-                <label className="block text-gray-700 text-sm font-medium mb-2">Email *</label>
-                <input
-                  type="email"
-                  required
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 outline-none transition-all"
-                  placeholder="john@example.com"
+          {/* Image Slider */}
+          <div
+            ref={scrollContainerRef}
+            className="overflow-x-auto scrollbar-hide scroll-smooth"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            <div className="flex space-x-4 min-w-max px-4">
+              {images.map((image, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="relative flex-shrink-0 w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-xl overflow-hidden group cursor-pointer"
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 280px, 320px"
+                  />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <p className="text-sm font-medium">{image.alt}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dots Indicator */}
+          {totalImages > 0 && (
+            <div className="flex justify-center gap-2 mt-6">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    index === currentIndex
+                      ? 'bg-[#D4AF37] w-6'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
                 />
-              </div>
+              ))}
+            </div>
+          )}
+        </motion.div>
 
-              {/* Move Details */}
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-2">From</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 outline-none transition-all"
-                    placeholder="City, State"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-2">To</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 outline-none transition-all"
-                    placeholder="City, State"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-gray-700 text-sm font-medium mb-2">Home Size *</label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                  {homeSizes.map((size) => (
-                    <button
-                      key={size.value}
-                      type="button"
-                      onClick={() => setSelectedSize(size.value)}
-                      className={`py-3 rounded-lg border transition-all ${
-                        selectedSize === size.value
-                          ? 'border-[#D4AF37] bg-[#D4AF37]/10 text-[#0A2540] font-medium'
-                          : 'border-gray-300 hover:border-gray-400 text-gray-600'
-                      }`}
-                    >
-                      {size.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-gray-700 text-sm font-medium mb-2">Move Date *</label>
-                <input
-                  type="date"
-                  required
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 outline-none transition-all"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 text-sm font-medium mb-2">Additional Notes</label>
-                <textarea
-                  rows={3}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 outline-none transition-all"
-                  placeholder="Any special items or requirements..."
-                />
-              </div>
-
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-[#D4AF37] to-amber-500 text-[#0A2540] font-bold py-4 rounded-lg text-lg hover:shadow-lg hover:shadow-amber-500/30 transition-all duration-300"
-              >
-                Get Free Quote
-              </motion.button>
-
-              <p className="text-center text-gray-500 text-xs md:text-sm">
-                We'll contact you within 30 minutes. No spam, ever.
-              </p>
-            </form>
-          </motion.div>
-        </div>
+        {/* View Full Gallery Link */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <Link
+            href="/gallery"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#0A2540] text-white rounded-lg hover:bg-[#0A2540]/90 transition-colors group"
+          >
+            <span className="font-medium">View Full Gallery</span>
+            <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+          <p className="text-gray-500 text-sm mt-2">
+            Browse all {Object.values(galleryImages).flat().length}+ photos
+          </p>
+        </motion.div>
       </div>
+
+      <style jsx>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 }
-
-
 
 
 

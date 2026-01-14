@@ -23,14 +23,15 @@ export default function Home() {
       {/* Services */}
       <Services />
       
+      {/* Request Quote */}
+      <RequestQuote />
+
       {/* Company History */}
       <CompanyHistory />
       
       {/* Testimonials */}
       <Testimonials />
       
-      {/* Request Quote */}
-      <RequestQuote />
       
       {/* FAQ */}
       <FAQ />
