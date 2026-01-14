@@ -113,8 +113,8 @@ export default function Header() {
               Trusted by <span className="text-[#D4AF37] font-bold">1,000+</span> Families
             </div>
             <div className="w-px h-4 bg-white/20"></div>
-            <a href="tel:2148972420" className="text-white hover:text-[#D4AF37] transition-colors text-sm font-medium">
-              <Phone className="h-4 w-4 inline mr-1" /> (214) 897-2420
+            <a href="tel:2403532854" className="text-white hover:text-[#D4AF37] transition-colors text-sm font-medium">
+              <Phone className="h-4 w-4 inline mr-1" /> (240) 353-2854
             </a>
           </div>
         </div>
