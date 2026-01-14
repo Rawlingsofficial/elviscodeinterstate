@@ -292,11 +292,11 @@ export default function Header() {
             {/* Mobile CTA */}
             <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-white/10 bg-[#0A2540]">
               <a 
-                href="tel:2148972420" 
+                href="tel:2403532854" 
                 className="flex items-center justify-center gap-3 text-[#D4AF37] font-semibold text-lg mb-4 hover:text-[#D4AF37]/80 transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                <Phone className="h-5 w-5" /> (214) 897-2420
+                <Phone className="h-5 w-5" /> (240) 353-2854
               </a>
               <Link 
                 href="/services/request-quote" 
