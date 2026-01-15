@@ -25,7 +25,7 @@ export default function Footer() {
 
   const socialLinks: Array<{ icon: React.ComponentType<{ className?: string }>, label: string, href: string, color: string }> = [
     { icon: Facebook, label: 'Facebook', href: 'https://facebook.com', color: 'text-blue-500' },
-    { icon: Instagram, label: 'Instagram', href: 'https://instagram.com', color: 'text-pink-500' },
+    { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/elviscointerstatemovers?igsh=MWNqa2NwbDZtN25iZg==', color: 'text-pink-500' },
     { icon: XIcon, label: 'X (Twitter)', href: 'https://x.com', color: 'text-gray-300' },
     { icon: TikTokIcon, label: 'TikTok', href: 'https://tiktok.com', color: 'text-black' },
     //{ icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com', color: 'text-blue-600' },//
