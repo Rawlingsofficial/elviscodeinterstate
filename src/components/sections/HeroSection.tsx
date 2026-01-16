@@ -136,12 +136,12 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Content - Added mt-32 to prevent navbar overlap */}
-      <div className="container-custom relative z-20 px-4 sm:px-6 mt-20 lg:mt-32">
+      {/* Content - Adjusted padding-top to account for smaller header */}
+      <div className="container-custom relative z-20 px-4 sm:px-6 pt-24 md:pt-28">
         <div className="max-w-4xl mx-auto">
-          {/* Trust Badge - Now positioned lower to avoid navbar */}
+          {/* Trust Badge - Moved lower with increased margin-top */}
           <motion.div 
-            className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-lg px-4 py-2 rounded-full mb-6 md:mb-8 border border-white/20"
+            className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-lg px-4 py-2 rounded-full mb-8 md:mb-10 border border-white/20 mt-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}

@@ -123,16 +123,16 @@ export default function Header() {
 
       {/* Main Navigation */}
       <div className="container-custom flex items-center justify-between">
-        {/* Logo with SVG - 2x larger */}
-        <Link href="/" className="flex items-center space-x-3 group relative z-10">
-          <div className={`relative transition-all duration-500 ${isScrolled ? 'h-20 w-48' : 'h-24 w-56'}`}>
+        {/* Logo - FIXED: Reduced width significantly */}
+        <Link href="/" className="flex items-center group relative z-10">
+          <div className={`relative transition-all duration-300 ${isScrolled ? 'h-14 w-32' : 'h-16 w-36'}`}>
             <Image
               src="/logo.svg"
               alt="Elvisco De Interstate Logo"
               fill
-              className="object-contain"
+              className="object-contain object-left"
               priority
-              sizes="(max-width: 768px) 224px, 224px"
+              sizes="(max-width: 768px) 144px, 144px"
               style={{ 
                 maxHeight: '100%',
                 maxWidth: '100%'
@@ -202,7 +202,7 @@ export default function Header() {
             </div>
           ))}
           
-          {/* CTA Button - Fixed link to /services/request-quote */}
+          {/* CTA Button */}
           <Link 
             href="/services/request-quote" 
             className={`ml-4 bg-gradient-to-r from-[#D4AF37] to-amber-500 text-[#0A2540] font-bold rounded-full hover:shadow-lg hover:shadow-amber-500/30 transition-all duration-300 ${
@@ -232,15 +232,15 @@ export default function Header() {
           >
             {/* Mobile Header */}
             <div className="p-6 border-b border-white/10">
-              <Link href="/" className="flex items-center space-x-3" onClick={() => setIsMenuOpen(false)}>
-                <div className="relative h-24 w-56">
+              <Link href="/" className="flex items-center" onClick={() => setIsMenuOpen(false)}>
+                <div className="relative h-16 w-36">
                   <Image
                     src="/logo.svg"
                     alt="Elvisco De Interstate Logo"
                     fill
-                    className="object-contain"
+                    className="object-contain object-left"
                     priority
-                    sizes="224px"
+                    sizes="144px"
                     style={{ 
                       maxHeight: '100%',
                       maxWidth: '100%'
