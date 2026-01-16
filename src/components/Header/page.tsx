@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Phone, Menu, X, ChevronDown, Truck, Shield, Clock, Package, Workflow, GalleryVertical, Users, Target } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -122,21 +123,21 @@ export default function Header() {
 
       {/* Main Navigation */}
       <div className="container-custom flex items-center justify-between">
-        {/* Logo */}
+        {/* Logo with SVG - 2x larger */}
         <Link href="/" className="flex items-center space-x-3 group relative z-10">
-          <div className={`relative transition-all duration-500 ${isScrolled ? 'h-10 w-10' : 'h-12 w-12'}`}>
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#D4AF37] to-amber-200"></div>
-            <div className="absolute inset-1 rounded-full bg-[#0A2540] flex items-center justify-center">
-              <span className="font-bold text-[#D4AF37] text-xl">E</span>
-            </div>
-          </div>
-          <div className="flex flex-col transition-all duration-500">
-            <span className={`font-bold text-white tracking-tight ${isScrolled ? 'text-lg' : 'text-xl'}`}>
-              Elvisco De Interstate
-            </span>
-            <span className={`text-[#D4AF37] font-medium tracking-wider ${isScrolled ? 'text-xs' : 'text-sm'}`}>
-              PREMIUM COAST-TO-COAST RELOCATION
-            </span>
+          <div className={`relative transition-all duration-500 ${isScrolled ? 'h-20 w-48' : 'h-24 w-56'}`}>
+            <Image
+              src="/logo.svg"
+              alt="Elvisco De Interstate Logo"
+              fill
+              className="object-contain"
+              priority
+              sizes="(max-width: 768px) 224px, 224px"
+              style={{ 
+                maxHeight: '100%',
+                maxWidth: '100%'
+              }}
+            />
           </div>
         </Link>
 
@@ -153,7 +154,9 @@ export default function Header() {
                 <Link 
                   href={item.href} 
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-300 ${
-                    'text-white/90 hover:text-white hover:bg-white/10'
+                    pathname === item.href 
+                      ? 'text-white bg-white/10' 
+                      : 'text-white/90 hover:text-white hover:bg-white/10'
                   }`}
                 >
                   {item.icon && <item.icon className="h-4 w-4" />}
@@ -230,12 +233,19 @@ export default function Header() {
             {/* Mobile Header */}
             <div className="p-6 border-b border-white/10">
               <Link href="/" className="flex items-center space-x-3" onClick={() => setIsMenuOpen(false)}>
-                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#D4AF37] to-amber-200 flex items-center justify-center font-bold text-[#0A2540] text-xl">
-                  E
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-white font-bold text-lg">Elvisco De Interstate</span>
-                  <span className="text-[#D4AF37] text-xs">PREMIUM RELOCATION</span>
+                <div className="relative h-24 w-56">
+                  <Image
+                    src="/logo.svg"
+                    alt="Elvisco De Interstate Logo"
+                    fill
+                    className="object-contain"
+                    priority
+                    sizes="224px"
+                    style={{ 
+                      maxHeight: '100%',
+                      maxWidth: '100%'
+                    }}
+                  />
                 </div>
               </Link>
             </div>
@@ -312,10 +322,3 @@ export default function Header() {
     </header>
   );
 }
-
-
-
-
-
-
-
