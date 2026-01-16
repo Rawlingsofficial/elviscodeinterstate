@@ -53,12 +53,12 @@ function ContactInfoSlider() {
     {
       icon: Mail,
       title: 'Email Us',
-      details: ['contact@elviscodeinterstate.com'],
+      details: ['info@elviscodeinterstate.com'],
       description: 'Response within 2 hours during business hours',
       color: 'from-emerald-400 to-teal-300',
       bgColor: 'bg-gradient-to-br from-emerald-50/80 to-teal-50/80 backdrop-blur-sm',
       iconColor: 'text-emerald-500',
-      action: 'mailto:contact@elviscodeinterstate.com'
+      action: 'mailto:inf0@elviscodeinterstate.com'
     },
     {
       icon: MapPin,
