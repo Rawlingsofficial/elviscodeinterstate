@@ -1,10 +1,11 @@
 // File: src/components/sections/Services.tsx
 "use client";
 
-import { Truck, Home, Building, Package, Warehouse, Car, Globe, Box, ArrowRight, CheckCircle, Shield, Clock, Users } from 'lucide-react';
+import { Truck, Home, Building, Package, Warehouse, ArrowRight, CheckCircle, Shield, Clock, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import type { Variants } from 'framer-motion';
+import Link from 'next/link';
 
 const services = [
   {
@@ -13,7 +14,7 @@ const services = [
     description: 'Complete home relocation with careful handling of all your belongings. We treat your home like our own.',
     features: ['Full packing service', 'Furniture disassembly', 'Secure transport', 'Unpacking assistance'],
     color: 'from-[#D4AF37] to-amber-500',
-    image: 'https://images.unsplash.com/photo-1551524165-6b6e5a6166f3?auto=format&fit=crop&w=800',
+    image: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800&q=80',
   },
   {
     icon: Building,
@@ -21,7 +22,7 @@ const services = [
     description: 'Minimize business downtime with our efficient office moving solutions. Keep your business running smoothly.',
     features: ['After-hours moving', 'IT equipment handling', 'Minimal disruption', 'Weekend service'],
     color: 'from-[#0A2540] to-[#1a3a5f]',
-    image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800',
+    image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80',
   },
   {
     icon: Truck,
@@ -29,7 +30,7 @@ const services = [
     description: 'Coast-to-coast moving with real-time tracking and updates. Your belongings are our priority.',
     features: ['GPS tracking', 'Climate control', 'Multi-stop routes', 'Storage options'],
     color: 'from-[#D4AF37] to-amber-500',
-    image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=800',
+    image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=800&q=80',
   },
   {
     icon: Package,
@@ -37,7 +38,7 @@ const services = [
     description: 'Professional packing using premium materials for maximum protection. We handle even the most delicate items.',
     features: ['Fragile item packing', 'Custom labeling system', 'Premium materials', 'Unpacking service'],
     color: 'from-[#0A2540] to-[#1a3a5f]',
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800',
+    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
   },
   {
     icon: Warehouse,
@@ -45,15 +46,15 @@ const services = [
     description: 'Secure short-term and long-term storage with climate control. Your items are safe with us.',
     features: ['24/7 security monitoring', 'Climate controlled', 'Easy access', 'Insurance included'],
     color: 'from-[#D4AF37] to-amber-500',
-    image: 'https://images.unsplash.com/photo-1577223625818-75bc1f2ac0e5?auto=format&fit=crop&w=800',
+    image: 'https://images.unsplash.com/photo-1590247813693-5541d1c609fd?auto=format&fit=crop&w=800&q=80',
   },
   {
-    icon: Car,
+    icon: Truck,
     title: 'Vehicle Shipping',
     description: 'Safe transport of your vehicles anywhere in the country. Enclosed transport for ultimate protection.',
     features: ['Enclosed transport', 'Insurance included', 'Door-to-door service', 'Real-time tracking'],
     color: 'from-[#0A2540] to-[#1a3a5f]',
-    image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800',
+    image: 'https://images.unsplash.com/photo-1616432043562-3671ea2e5242?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
@@ -200,14 +201,22 @@ export default function Services() {
               >
                 {/* Background Image with Overlay */}
                 <div className="relative h-48 md:h-56 overflow-hidden">
-                  <motion.div 
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${service.image})` }}
-                    animate={{ 
-                      scale: hoveredCard === index ? 1.1 : 1 
-                    }}
-                    transition={{ duration: 0.6 }}
-                  />
+                  <div className="absolute inset-0">
+                    <motion.img 
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover"
+                      animate={{ 
+                        scale: hoveredCard === index ? 1.1 : 1 
+                      }}
+                      transition={{ duration: 0.6 }}
+                      onError={(e) => {
+                        // Fallback if image fails to load
+                        const target = e.target as HTMLImageElement;
+                        target.src = `https://via.placeholder.com/800x400/0A2540/ffffff?text=${encodeURIComponent(service.title)}`;
+                      }}
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
                   
                   {/* Service Icon */}
@@ -263,20 +272,22 @@ export default function Services() {
                     ))}
                   </ul>
                   
-                  {/* Action Button */}
-                  <motion.button 
-                    className={`w-full py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm md:text-base flex items-center justify-center gap-2 transition-all duration-300 ${service.color.includes('from-[#D4AF37]') ? 'bg-gradient-to-r from-[#D4AF37] to-amber-500 text-[#0A2540] hover:shadow-lg hover:shadow-amber-500/30' : 'bg-gradient-to-r from-[#0A2540] to-[#1a3a5f] text-white hover:shadow-lg hover:shadow-[#0A2540]/30'}`}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <span>Explore Service</span>
-                    <motion.div
-                      animate={{ x: hoveredCard === index ? 5 : 0 }}
-                      transition={{ duration: 0.2 }}
+                  {/* Action Button - Connected to /services page */}
+                  <Link href="/services">
+                    <motion.button 
+                      className={`w-full py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm md:text-base flex items-center justify-center gap-2 transition-all duration-300 ${service.color.includes('from-[#D4AF37]') ? 'bg-gradient-to-r from-[#D4AF37] to-amber-500 text-[#0A2540] hover:shadow-lg hover:shadow-amber-500/30' : 'bg-gradient-to-r from-[#0A2540] to-[#1a3a5f] text-white hover:shadow-lg hover:shadow-[#0A2540]/30'}`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
-                    </motion.div>
-                  </motion.button>
+                      <span>Explore Service</span>
+                      <motion.div
+                        animate={{ x: hoveredCard === index ? 5 : 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
+                      </motion.div>
+                    </motion.button>
+                  </Link>
                 </div>
               </motion.div>
             </motion.div>
@@ -344,23 +355,27 @@ export default function Services() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button 
-                className="bg-gradient-to-r from-[#D4AF37] to-amber-500 text-[#0A2540] font-bold px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg hover:shadow-2xl hover:shadow-amber-500/40 transition-all duration-300 flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span>Get Your Free Quote</span>
-                <ArrowRight className="h-5 w-5" />
-              </motion.button>
+              <Link href="/services/request-quote">
+                <motion.button 
+                  className="bg-gradient-to-r from-[#D4AF37] to-amber-500 text-[#0A2540] font-bold px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg hover:shadow-2xl hover:shadow-amber-500/40 transition-all duration-300 flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span>Get Your Free Quote</span>
+                  <ArrowRight className="h-5 w-5" />
+                </motion.button>
+              </Link>
               
-              <motion.button 
-                className="bg-transparent border-2 border-white/30 text-white font-bold px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Users className="h-5 w-5" />
-                <span>Speak with Expert</span>
-              </motion.button>
+              <Link href="/contact">
+                <motion.button 
+                  className="bg-transparent border-2 border-white/30 text-white font-bold px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Users className="h-5 w-5" />
+                  <span>Speak with Expert</span>
+                </motion.button>
+              </Link>
             </div>
             
             {/* Trust badges */}
@@ -384,4 +399,3 @@ export default function Services() {
     </section>
   );
 }
-

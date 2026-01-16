@@ -1,6 +1,7 @@
 // File: src/components/Footer/page.tsx
 import Link from 'next/link';
 import { MapPin, Phone, Mail, Clock, Shield, Truck, Award, Facebook, Instagram, Sparkles, Star } from 'lucide-react';
+import Image from 'next/image';
 
 // Custom X (Twitter) icon component
 const XIcon = ({ className = "h-5 w-5" }: { className?: string }) => (
@@ -73,25 +74,39 @@ export default function Footer() {
       <div className="container-custom relative z-10 px-4">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12 pb-12 border-b border-white/10">
-          {/* Brand Column */}
+          {/* Brand Column - Updated with logo2.png on white background */}
           <div className="space-y-6">
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <div className="h-14 w-14 md:h-16 md:w-16 rounded-full bg-gradient-to-br from-[#D4AF37] via-amber-300 to-[#D4AF37] flex items-center justify-center font-bold text-[#0A2540] text-2xl md:text-3xl border-4 border-white/20 shadow-xl">
-                  E
+            <div className="flex flex-col items-start">
+              <Link href="/" className="relative group">
+                {/* White background container */}
+                <div className="bg-white rounded-2xl p-6 shadow-2xl border-2 border-white/20 transition-all duration-300 hover:scale-105 hover:shadow-amber-500/20 mb-4">
+                  <div className="relative h-32 w-80">
+                    <Image
+                      src="/logo2.png"
+                      alt="Elvisco De Interstate Logo with Company Name"
+                      fill
+                      className="object-contain"
+                      priority
+                      sizes="(max-width: 768px) 320px, 320px"
+                      style={{ 
+                        maxHeight: '100%',
+                        maxWidth: '100%'
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2">
-                  <Sparkles className="h-4 w-4 md:h-6 md:w-6 text-yellow-400 animate-pulse" />
+                <div className="absolute -top-2 -right-2">
+                  <Sparkles className="h-5 w-5 text-yellow-400 animate-pulse" />
                 </div>
-              </div>
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-white">Elvisco</h2>
-                <div className="flex items-center">
-                  <p className="text-[#D4AF37] text-base md:text-lg font-semibold">De Interstate</p>
-                  <Star className="h-3 w-3 md:h-4 md:w-4 text-yellow-400 ml-2 fill-current" />
-                </div>
+              </Link>
+              
+              {/* Company tagline below the logo */}
+              <div className="text-center w-full">
+                <p className="text-white text-sm font-medium mb-1">Elvisco De Interstate</p>
+                <p className="text-[#D4AF37] text-xs font-semibold">Premium Moving Services Nationwide</p>
               </div>
             </div>
+            
             <p className="text-white/80 text-sm leading-relaxed backdrop-blur-sm bg-white/5 p-4 rounded-lg border border-white/10">
               Providing <span className="text-[#D4AF37] font-semibold">premium moving services</span> across the U.S. with uncompromising quality, reliability, and personal attention to detail.
             </p>

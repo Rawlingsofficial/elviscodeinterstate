@@ -4,6 +4,7 @@
 import { ChevronRight, Shield, Clock, Users, Trophy, Star, Sparkles, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 const heroImages = [
   'https://images.unsplash.com/photo-1623298317882-8e6a1df0c0c0?auto=format&fit=crop&w=1920&q=80&blend=000000&blend-alpha=20&blend-mode=multiply',
@@ -185,33 +186,35 @@ export default function HeroSection() {
             and the highest standards of service excellence.
           </motion.p>
           
-          {/* CTA Buttons */}
+          {/* CTA Buttons - FIXED: Added Link to Get Instant Quote button */}
           <motion.div 
             className="flex flex-col sm:flex-row gap-4 mb-12 md:mb-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <motion.button 
-              className="bg-gradient-to-r from-[#D4AF37] to-amber-500 text-[#0A2540] font-bold px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg hover:shadow-2xl hover:shadow-amber-500/40 transition-all duration-300 flex items-center justify-center group relative overflow-hidden"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="relative z-10 flex items-center">
-                Get Instant Quote
-                <motion.div
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="ml-2"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </motion.div>
-              </span>
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-r from-amber-500 to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                initial={false}
-              />
-            </motion.button>
+            <Link href="/services/request-quote">
+              <motion.button 
+                className="bg-gradient-to-r from-[#D4AF37] to-amber-500 text-[#0A2540] font-bold px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg hover:shadow-2xl hover:shadow-amber-500/40 transition-all duration-300 flex items-center justify-center group relative overflow-hidden"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="relative z-10 flex items-center">
+                  Get Instant Quote
+                  <motion.div
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="ml-2"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </motion.div>
+                </span>
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-amber-500 to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  initial={false}
+                />
+              </motion.button>
+            </Link>
             
             <motion.button 
               className="bg-transparent border-2 border-white/30 text-white font-bold px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg hover:bg-white/10 hover:border-white/50 transition-all duration-300 flex items-center justify-center gap-2"
@@ -318,4 +321,3 @@ export default function HeroSection() {
     </section>
   );
 }
-

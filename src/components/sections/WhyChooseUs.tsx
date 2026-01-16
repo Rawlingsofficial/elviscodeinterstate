@@ -4,6 +4,7 @@
 import { Rocket, DollarSign, Shield, Headphones, Clock, Award } from 'lucide-react';
 import { motion, useInView, useAnimation, Variants } from 'framer-motion';
 import { useRef, useEffect } from 'react';
+import Link from 'next/link';
 
 const features = [
   {
@@ -368,48 +369,50 @@ export default function WhyChooseUs() {
           ))}
         </motion.div>
 
-        {/* CTA Section */}
+        {/* CTA Section - Changed from "Start Your Premium Journey" to "Contact Us" */}
         <motion.div 
           className="mt-16 md:mt-20 lg:mt-24 text-center px-4 md:px-0"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
-          <motion.button 
-            className="relative px-6 py-4 md:px-10 md:py-5 lg:px-12 lg:py-6 bg-gradient-to-r from-[#0A2540] via-[#1D4ED8] to-[#0A2540] text-white font-bold rounded-xl md:rounded-2xl text-base md:text-lg lg:text-xl shadow-xl overflow-hidden group"
-            whileHover={{ scale: 1.05, boxShadow: "0 20px 60px -15px rgba(10, 37, 64, 0.3)" }}
-            whileTap={{ scale: 0.98 }}
-            style={{ backgroundSize: "200% 200%" }}
-            animate={{ 
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-            }}
-            transition={{
-              backgroundPosition: {
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear",
-              }
-            }}
-          >
-            <span className="relative z-10 flex items-center justify-center">
-              Start Your Premium Journey
-              <motion.svg 
-                className="w-5 h-5 md:w-6 md:h-6 ml-3" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-                animate={{ x: [0, 5, 0] }}
-                transition={{
-                  duration: 1.5,
+          <Link href="/contact">
+            <motion.button 
+              className="relative px-6 py-4 md:px-10 md:py-5 lg:px-12 lg:py-6 bg-gradient-to-r from-[#0A2540] via-[#1D4ED8] to-[#0A2540] text-white font-bold rounded-xl md:rounded-2xl text-base md:text-lg lg:text-xl shadow-xl overflow-hidden group"
+              whileHover={{ scale: 1.05, boxShadow: "0 20px 60px -15px rgba(10, 37, 64, 0.3)" }}
+              whileTap={{ scale: 0.98 }}
+              style={{ backgroundSize: "200% 200%" }}
+              animate={{ 
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{
+                backgroundPosition: {
+                  duration: 3,
                   repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </motion.svg>
-            </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37] to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          </motion.button>
+                  ease: "linear",
+                }
+              }}
+            >
+              <span className="relative z-10 flex items-center justify-center">
+                Contact Us
+                <motion.svg 
+                  className="w-5 h-5 md:w-6 md:h-6 ml-3" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </motion.svg>
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37] to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </motion.button>
+          </Link>
           
           <motion.p 
             className="mt-4 md:mt-6 text-gray-500 text-sm md:text-base"
@@ -417,7 +420,7 @@ export default function WhyChooseUs() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            Join 10,000+ satisfied customers who chose excellence
+            Get in touch for a personalized moving consultation
           </motion.p>
         </motion.div>
       </div>
